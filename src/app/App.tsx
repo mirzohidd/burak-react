@@ -3,7 +3,7 @@ import logo from "./logo.svg";
 
 import "../css/App.css";
 import { Container, Stack, Box, Typography, Button } from "@mui/material";
-
+import { RippleBadge } from "./MaterialTheme/styled";
 function App() {
   return (
     <Container maxWidth="sm">
@@ -13,7 +13,11 @@ function App() {
             Create React App on Typescript with Redux
           </Typography>
         </Box>
-        <Button variant="contained">Contained</Button>
+        <Box>
+          <RippleBadge badgeContent="4">
+            <Button variant="contained">Contained</Button>
+          </RippleBadge>
+        </Box>
       </Stack>
     </Container>
   );
