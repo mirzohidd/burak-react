@@ -14,6 +14,7 @@ const container = document.getElementById("root");
 if (container) {
   const root = createRoot(container);
   root.render(
+    <>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
@@ -22,6 +23,8 @@ if (container) {
         </Router>
       </ThemeProvider>
     </Provider>
+    </>
+    
   );
 }
 
