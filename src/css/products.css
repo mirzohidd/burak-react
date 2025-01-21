@@ -487,3 +487,11 @@
     color: #f8f8ff;
   }
   
+  .products-page .chosen-product .title {
+    font-family: "Dancing Script";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 43px;
+    margin-top: 40px;
+  }
