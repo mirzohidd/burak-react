@@ -1,6 +1,4 @@
 import React from "react";
-
-import "../css/App.css";
 import { Container, Stack, Box, Typography, Button } from "@mui/material";
 import { Link, Route, Switch, useLocation } from "react-router-dom";
 import HomePage from "./screens/homePage";
@@ -11,7 +9,7 @@ import UserPage from "./screens/userPage";
 import OtherNavbar from "./components/headers/OtherNavbar";
 import HomeNavbar from "./components/headers/HomeNavbar";
 import Footer from "./components/footers";
-import "../css/App.css";
+import "../css/app.css";
 import "../css/navbar.css";
 import "../css/footer.css";
 
