@@ -26,10 +26,10 @@ function App() {
         <Route path="/orders">
           <OrdersPage />
         </Route>
-        <Route path="/user">
+        <Route path="/members-page">
           <UserPage />
         </Route>
-        <Route path="/jrlp">
+        <Route path="/help">
           <HelpPage />
         </Route>
         <Route path="/">
