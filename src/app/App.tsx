@@ -12,11 +12,12 @@ import Footer from "./components/footers";
 import "../css/app.css";
 import "../css/navbar.css";
 import "../css/footer.css";
+import Test from "./screens/Test";
 
 function App() {
   const location = useLocation();
 
-  return ( 
+  return (
     <>
       {location.pathname === "/" ? <HomeNavbar /> : <OtherNavbar />}
       <Switch>
@@ -36,6 +37,8 @@ function App() {
           <HomePage />
         </Route>
       </Switch>
+
+      <Test/>
 
       <Footer />
     </>
