@@ -38,7 +38,7 @@ function App() {
         </Route>
       </Switch>
 
-      <Test/>
+      {/* <Test/> */}
 
       <Footer />
     </>
