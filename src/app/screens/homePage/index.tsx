@@ -38,7 +38,7 @@ export default function HomePage() {
    
     // slice: Data => Store
     // @ts-ignore
-    setPopularDishes(result);
+    setPopularDishes();
   }, []);
 
   return (
