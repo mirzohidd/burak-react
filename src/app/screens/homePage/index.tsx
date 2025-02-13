@@ -35,11 +35,12 @@ export default function HomePage() {
   // Selector : Store = Data
   useEffect(() => {
     // Backend server data request =>Data
-   
+
     // slice: Data => Store
     // @ts-ignore
     setPopularDishes();
   }, []);
+  
 
   return (
     <div className={"homepage"}>
