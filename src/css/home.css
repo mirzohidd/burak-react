@@ -140,6 +140,7 @@
   font-size: 12px;
   line-height: 21px;
   color: #f8f8ff;
+  justify-content: center;
 }
 .homepage .new-products-frame .product-detail {
   width: auto;
