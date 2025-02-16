@@ -10,16 +10,26 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import TextField from "@mui/material/TextField";
 
-const products = [
-  { productName: "Cutlet", imagePath: "img/cutlet.webp" },
-  { productName: "Kebab", imagePath: "img/kebab-fresh.webp" },
-  { productName: "Kebab", imagePath: "img/kebab.webp" },
-  { productName: "Lavash", imagePath: "img/lavash.webp" },
-  { productName: "Lavash", imagePath: "img/lavash.webp" },
-  { productName: "Cutlet", imagePath: "img/cutlet.webp" },
-  { productName: "Kebab", imagePath: "img/kebab-fresh.webp" },
-  { productName: "Kebab", imagePath: "img/kebab.webp" },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { serProducts } from "./slice";
+import { createSelector } from "reselect";
+import { retrieveProducts } from "./selector";
+import { Product, ProductInquiry } from "../../../lib/types/product";
+import ProductService from "../../services/ProductService";
+import { ProductCollection } from "../../../lib/enums/product.enum";
+import { serverApi } from "../../../lib/config";
+import { useHistory } from "react-router-dom";
+// import { CartItem } from "../../../lib/types/search"
+
+/** REDUX SLICE & SELECTOR **/
+
+const actionDispatch = (dispatch: Dispatch) => ({
+  setProducts: (data: Product[]) => dispatch(serProducts(data)),
+});
+const productsRetriever = createSelector(retrieveProducts, (products) => ({
+  products,
+}));
 
 export default function Products() {
   return (
@@ -39,8 +49,7 @@ export default function Products() {
                 variant="contained"
                 className="searchButton"
                 type="submit"
-                endIcon={<SearchIcon />}
-              >
+                endIcon={<SearchIcon />}>
                 SEARCH
               </Button>
             </Stack>
@@ -80,14 +89,13 @@ export default function Products() {
             </Stack>
 
             <Stack className="product-wrapper">
-              {products.length !== 0 ? (
+              {/* {products.length !== 0 ? (
                 products.map((product, index) => {
                   return (
                     <Stack key={index} className="product-card">
                       <Stack
                         className="product-img"
-                        sx={{ backgroundImage: `url(${product.imagePath})` }}
-                      >
+                        sx={{ backgroundImage: `url(${product.imagePath})` }}>
                         <div className="products-sale">Normal size</div>
                         <Button className="shop-btn">
                           <img
@@ -99,7 +107,7 @@ export default function Products() {
                         <Button className="view-btn" sx={{ right: "36px" }}>
                           <Badge badgeContent={20} color="secondary">
                             <RemoveRedEyeIcon
-                              sx={{ color: 20 ? "gray" : "white" }}
+                            
                             />
                           </Badge>
                         </Button>
@@ -117,7 +125,7 @@ export default function Products() {
                 })
               ) : (
                 <Box className="no-data">Products are not available</Box>
-              )}
+              )} */}
             </Stack>
           </Stack>
 
@@ -169,8 +177,7 @@ export default function Products() {
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3152.467927012871!2d-122.0841436846819!3d37.42199977982518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f7e3c3e4e3c6d%3A0x4b6b6b1d3e3c0b2e!2sGoogleplex!5e0!3m2!1sen!2str!4v1634742459931!5m2!1sen!2str"
               width="1320"
               height="500"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+              referrerPolicy="no-referrer-when-downgrade"></iframe>
           </Stack>
         </Container>
       </div>
