@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ProductsPageState } from "../../../lib/types/screen";
-import exp from "constants";
 
 const initialState: ProductsPageState = {
   restaurant: null,
@@ -8,7 +7,7 @@ const initialState: ProductsPageState = {
   products: [],
 };
 
-const productsPgaeSlice = createSlice({
+const productsPageSlice = createSlice({
   name: "productsPage",
   initialState,
   reducers: {
@@ -18,14 +17,14 @@ const productsPgaeSlice = createSlice({
     setChosenProduct: (state, action) => {
       state.chosenProduct = action.payload;
     },
-    serProducts: (state, action) => {
+    setProducts: (state, action) => {
       state.products = action.payload;
     },
   },
 });
-export const { setRestaurant, setChosenProduct, serProducts } =
-  productsPgaeSlice.actions;
 
-const ProductsPageReducer = productsPgaeSlice.reducer;
+export const { setChosenProduct, setProducts, setRestaurant } =
+  productsPageSlice.actions;
 
-export default ProductsPageReducer;
+const ProductPageReducer = productsPageSlice.reducer;
+export default ProductPageReducer;

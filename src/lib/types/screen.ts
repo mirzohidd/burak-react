@@ -14,11 +14,10 @@ export interface HomePageState {
   topUsers: Member[];
 }
 
+/** PRODUCTS PAGE  **/
 export interface ProductsPageState {
   restaurant: Member | null;
   chosenProduct: Product | null;
   products: Product[];
 }
-/** PRODUCTS PAGE  **/
-
 /** ORDERS PAGE  **/
