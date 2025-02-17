@@ -9,18 +9,15 @@ class ProductService {
   }
   public async getProducts(input: ProductInquiry): Promise<Product[]> {
     try {
-      let url = `${this.path}/product/all/?order=${input.order}&page=${input.page}&limit=${input.limit}`;
+      let url = `${this.path}/product/all?order=${input.order}&page=${input.page}&limit=${input.limit}`;
       if (input.productCollection)
         url += `&productCollection=${input.productCollection}`;
-      if (input.search) url += `&searc=${input.search}`;
+      if (input.search) url += `&search=${input.search}`;
 
       const result = await axios.get(url);
-
-      console.log("getProducts", result);
-
       return result.data;
     } catch (err) {
-      console.log("Error , getProduct", err);
+      console.log("Error, getProducts", err);
       throw err;
     }
   }
