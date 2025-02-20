@@ -11,6 +11,7 @@ import { Messages } from "../../../lib/config";
 import { LoginInput, MemberInput } from "../../../lib/types/member";
 import MemberService from "../../services/MemberSerice";
 import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import { useGlobals } from "../../hooks/useGlobals";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -48,6 +49,8 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
   const [memberNick, setMemberNick] = useState<string>("");
   const [memberPhone, setMemberPhone] = useState<string>("");
   const [memberPassword, setMemberPassword] = useState<string>("");
+  const {setAuthMember} = useGlobals();
+  
   /** HANDLERS **/
   const handleUsername = (e: T) => {
     setMemberNick(e.target.value);
@@ -62,7 +65,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
     if (e.key === "Enter" && signupOpen) {
       handleSignupRequest().then();
     } else if (e.key === "Enter" && loginOpen) {
-      // handleLoginRequest().then();
+      handleLoginRequest().then();
     }
   };
   const handleLoginRequest = async () => {
@@ -76,7 +79,9 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
       const member = new MemberService();
       const result = await member.login(loginInput);
       // Saving Authenticated user
+      setAuthMember(result);
       handleLoginClose();
+      
     } catch (err) {
       console.log(err);
       handleLoginClose();
@@ -85,8 +90,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
   };
   const handleSignupRequest = async () => {
     try {
-      const isFulfill =
-        memberNick !== "" || memberPhone! == "" || memberPassword !== "";
+      const isFulfill = memberNick !== "" && memberPhone !== "" && memberPassword !== ""; 
       console.log(isFulfill);
       if (!isFulfill) throw new Error(Messages.error3);
       const singupInput: MemberInput = {
@@ -98,7 +102,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
       const member = new MemberService();
       const result = await member.signup(singupInput);
       // Saving Authenticated user
-
+      setAuthMember(result);
       handleSignupClose();
     } catch (err) {
       console.log(err);
@@ -190,7 +194,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
                 label="username"
                 variant="outlined"
                 sx={{ my: "10px" }}
-                onCanPlay={handleUsername}
+                onChange={handleUsername}
               />
               <TextField
                 id={"outlined-basic"}

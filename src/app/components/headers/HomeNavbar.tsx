@@ -1,8 +1,19 @@
-import { Box, Button, Container, Stack } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Button,
+  Container,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Stack,
+} from "@mui/material";
 import { NavLink } from "react-router-dom";
 import Basket from "./Basket";
-import { useEffect, useState } from "react";
 import { CartItem } from "../../../lib/types/search";
+import { useGlobals } from "../../hooks/useGlobals";
+import { serverApi } from "../../../lib/config";
+import { Logout } from "@mui/icons-material";
 interface HomeNavbarProps {
   cartItems: CartItem[];
   onAdd: (input: CartItem) => void;
@@ -11,6 +22,10 @@ interface HomeNavbarProps {
   onDeleteAll: () => void;
   setSignupOpen: (input: boolean) => void;
   setLoginOpen: (input: boolean) => void;
+  anchorEl: HTMLElement | null;
+  handleLogoutClick: (e: React.MouseEvent<HTMLElement>) => void;
+  handleCloseLogout: () => void;
+  handleLogoutRequest: () => void;
 }
 
 export default function HomeNavbar(props: HomeNavbarProps) {
@@ -22,9 +37,13 @@ export default function HomeNavbar(props: HomeNavbarProps) {
     onDeleteAll,
     setSignupOpen,
     setLoginOpen,
+    anchorEl,
+    handleLogoutClick,
+    handleCloseLogout,
+    handleLogoutRequest,
   } = props;
-
-  const authMember = null;
+  const { authMember } = useGlobals();
+  // const authMember = null;
 
   return (
     <div className="home-navbar">
@@ -77,13 +96,67 @@ export default function HomeNavbar(props: HomeNavbarProps) {
             />
             {!authMember ? (
               <Box>
-                <Button variant="contained" className="login-button" onClick={() => setLoginOpen(true)}>
+                <Button
+                  variant="contained"
+                  className="login-button"
+                  onClick={() => setLoginOpen(true)}>
                   Login
                 </Button>
               </Box>
             ) : (
-              <img className="user-avatar" src={"/icons/default-user.svg"} />
+              <img
+                className="user-avatar"
+                src={
+                  authMember?.memberImage
+                    ? `${serverApi}/${authMember.memberImage}`
+                    : "/icons/default-user.svg"
+                }
+                aria-haspopup={"true"}
+                onClick={handleLogoutClick}
+              />
             )}
+
+            <Menu
+              anchorEl={anchorEl}
+              id="account-menu"
+              open={Boolean(anchorEl)}
+              onClose={handleCloseLogout}
+              onClick={handleCloseLogout}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: "visible",
+                  filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                  mt: 1.5,
+                  "& .MuiAvatar-root": {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  "&:before": {
+                    content: '""',
+                    display: "block",
+                    position: "absolute",
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: "background.paper",
+                    transform: "translateY(-50%) rotate(45deg)",
+                    zIndex: 0,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: "right", vertical: "top" }}
+              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}>
+              <MenuItem onClick={handleLogoutRequest}>
+                <ListItemIcon>
+                  <Logout fontSize="small" style={{ color: "blue" }} />
+                </ListItemIcon>
+                Logout
+              </MenuItem>
+            </Menu>
           </Stack>
         </Stack>
         <Stack className="header-frame">

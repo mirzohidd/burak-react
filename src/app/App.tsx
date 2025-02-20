@@ -16,18 +16,42 @@ import "../css/App.css";
 import "../css/navbar.css";
 import "../css/footer.css";
 import AuthenticationModal from "./components/auth";
+import { T } from "../lib/types/common";
+import { sweetErrorHandling, sweetTopSuccessAlert } from "../lib/sweetAlert";
+import { Message } from "@mui/icons-material";
+import { Messages } from "../lib/config";
+import MemberService from "./services/MemberSerice";
+import { useGlobals } from "./hooks/useGlobals";
 
 function App() {
   const location = useLocation();
+  const { setAuthMember } = useGlobals();
   const { cartItems, onAdd, onDelete, onDeleteAll, onRemove } = useBasket();
   const [signupOpen, setSignupOpen] = useState<boolean>(false);
   const [loginOpen, setLoginOpen] = useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   /** HANDLERS **/
 
   const handleSignUpClose = () => setSignupOpen(false);
   const handleLoginClose = () => setLoginOpen(false);
-
+  const handleLogoutClick = (e: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(e.currentTarget);
+  };
+  const handleCloseLogout = () => {
+    setAnchorEl(null);
+  };
+  const handleLogoutRequest = async () => {
+    try {
+      const member = new MemberService();
+      const result = await member.logout();
+      await sweetTopSuccessAlert("success", 700);
+      setAuthMember(null);
+    } catch (err) {
+      console.log(err);
+      sweetErrorHandling(Messages.error1);
+    }
+  };
   return (
     <>
       {location.pathname === "/" ? (
@@ -39,6 +63,10 @@ function App() {
           onDeleteAll={onDeleteAll}
           setSignupOpen={setSignupOpen}
           setLoginOpen={setLoginOpen}
+          anchorEl={anchorEl}
+          handleLogoutClick={handleLogoutClick}
+          handleCloseLogout={handleCloseLogout}
+          handleLogoutRequest={handleLogoutRequest}
         />
       ) : (
         <OtherNavbar
@@ -49,6 +77,10 @@ function App() {
           onDeleteAll={onDeleteAll}
           setSignupOpen={setSignupOpen}
           setLoginOpen={setLoginOpen}
+          anchorEl={anchorEl}
+          handleLogoutClick={handleLogoutClick}
+          handleCloseLogout={handleCloseLogout}
+          handleLogoutRequest={handleLogoutRequest}
         />
       )}
       <Switch>

@@ -2,6 +2,7 @@ import axios from "axios";
 
 import { serverApi } from "../../lib/config";
 import { LoginInput, Member, MemberInput } from "../../lib/types/member";
+import { VariantSolid } from "@mui/joy";
 class MemberService {
   private readonly path: string;
   constructor() {
@@ -33,29 +34,42 @@ class MemberService {
   public async signup(input: MemberInput): Promise<Member> {
     try {
       const url = this.path + "/member/signup";
-      const result = await axios.post(url, input, { withCredentials: true });
-      console.log("signup", result);
+      const result = await axios.post(url, input, {
+        withCredentials: true,
+      });
 
       const member: Member = result.data.member;
-      console.log("member", member);
-      localStorage.setItem("memberData", JSON.stringify(member));
 
+      localStorage.setItem("memberData", JSON.stringify(member));
       return member;
     } catch (err) {
-      console.log("Error , signup", err);
+      console.log("Error, signup", err);
       throw err;
     }
   }
-  public async login(input: LoginInput): Promise<Member> {   
+  public async login(input: LoginInput): Promise<Member> {
     try {
       const url = this.path + "/member/login";
-      const result = await axios.post(url, input, { withCredentials: true });
-      console.log("login", result);
+      const result = await axios.post(url, input, {
+        withCredentials: true,
+      });
+
       const member: Member = result.data.member;
       localStorage.setItem("memberData", JSON.stringify(member));
       return member;
     } catch (err) {
-      console.log("Error , login", err);
+      console.log("Error, login", err);
+      throw err;
+    }
+  }
+  public async logout(): Promise<void> {
+    try {
+      const url = this.path + "/member/logout";
+      const result = await axios.post(url, {}, { withCredentials: true });
+      
+      localStorage.removeItem("memberData");
+    } catch (err) {
+      console.log("Error, logout", err);
       throw err;
     }
   }
