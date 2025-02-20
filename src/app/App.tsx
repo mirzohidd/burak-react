@@ -12,7 +12,7 @@ import Footer from "./components/footers";
 import Test from "./screens/Test";
 import useBasket from "./hooks/useBasket";
 
-import "../css/app.css";
+import "../css/App.css";
 import "../css/navbar.css";
 import "../css/footer.css";
 import AuthenticationModal from "./components/auth";
@@ -37,6 +37,8 @@ function App() {
           onRemove={onRemove}
           onDelete={onDelete}
           onDeleteAll={onDeleteAll}
+          setSignupOpen={setSignupOpen}
+          setLoginOpen={setLoginOpen}
         />
       ) : (
         <OtherNavbar
@@ -45,6 +47,8 @@ function App() {
           onRemove={onRemove}
           onDelete={onDelete}
           onDeleteAll={onDeleteAll}
+          setSignupOpen={setSignupOpen}
+          setLoginOpen={setLoginOpen}
         />
       )}
       <Switch>
@@ -65,7 +69,12 @@ function App() {
         </Route>
       </Switch>
       <Footer />
-      <AuthenticationModal signupOpen={signupOpen} loginOpen={loginOpen} handleSignupClose={handleSignUpClose} handleLoginClose={handleLoginClose} />
+      <AuthenticationModal
+        signupOpen={signupOpen}
+        loginOpen={loginOpen}
+        handleSignupClose={handleSignUpClose}
+        handleLoginClose={handleLoginClose}
+      />
     </>
   );
 }
