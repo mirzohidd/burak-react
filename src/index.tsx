@@ -11,24 +11,22 @@ import { BrowserRouter as Router } from "react-router-dom";
 import ContextProvider from "./app/context/ContextProvider";
 import "./css/index.css";
 
-
 const container = document.getElementById("root");
 if (container) {
   const root = createRoot(container);
   root.render(
     <>
-    <Provider store={store}>
-      <ContextProvider>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router>
-          <App />
-        </Router>
-      </ThemeProvider>
-      </ContextProvider>
-    </Provider>
+      <Provider store={store}>
+        <ContextProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Router>
+              <App />
+            </Router>
+          </ThemeProvider>
+        </ContextProvider>
+      </Provider>
     </>
-    
   );
 }
 
