@@ -20,7 +20,7 @@ export interface Order {
   _id: string;
   orderTotal: number;
   orderDelivery: number;
-  OrderStatus: OrderStatus;
+  orderStatus: OrderStatus;
   memberId: string;
   createAt: Date;
   updateAt: Date;

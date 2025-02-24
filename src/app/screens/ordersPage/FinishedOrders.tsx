@@ -2,14 +2,27 @@ import React from "react";
 import { Stack, Box } from "@mui/material";
 import TabPanel from "@mui/lab/TabPanel";
 
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { retriverFinishedOrders } from "./selector";
+import { Product } from "../../../lib/types/product";
+import { ProductCollection } from "../../../lib/enums/product.enum";
+import { serverApi } from "../../../lib/config";
+
+const popularDishesRetriever = createSelector(
+  retriverFinishedOrders,
+  (finishedOrders) => ({
+    finishedOrders,
+  })
+);
 export default function FinishedOrders() {
-  
+  const { finishedOrders } = useSelector(popularDishesRetriever);
 
   return (
     <TabPanel value="3">
       <Stack>
         {/* number of orders */}
-        {[1,2].map((ele, index) => {
+        {[1, 2].map((ele, index) => {
           return (
             <Box key={index} className="order-main-box">
               <Box className="order-box-scroll">

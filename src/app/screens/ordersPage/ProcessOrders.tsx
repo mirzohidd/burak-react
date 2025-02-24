@@ -1,11 +1,24 @@
-
 import React from "react";
 import { Stack, Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import TabPanel from "@mui/lab/TabPanel";
 import moment from "moment";
-export default function ProcessOrders() {
 
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { retriveProcessOrders } from "./selector";
+import { Product } from "../../../lib/types/product";
+import { ProductCollection } from "../../../lib/enums/product.enum";
+import { serverApi } from "../../../lib/config";
+const processOrdersRetriever = createSelector(
+  retriveProcessOrders,
+  (processOrders) => ({
+    processOrders,
+  })
+);
+
+export default function ProcessOrders() {
+  const { processOrders } = useSelector(processOrdersRetriever);
 
   return (
     <TabPanel value="2">
