@@ -83,8 +83,7 @@ export default function PausedOrders() {
           );
         })}
 
-        {!pausedOrders ||
-          (pausedOrders.length === 0 && (
+        {!pausedOrders || (pausedOrders.length === 0) && (
             <Box
               display={"flex"}
               flexDirection={"row"}
@@ -94,7 +93,7 @@ export default function PausedOrders() {
                 style={{ width: 300, height: 300 }}
               />
             </Box>
-          ))}
+          )}
       </Stack>
     </TabPanel>
   );
